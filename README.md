@@ -1,4 +1,4 @@
-### Ripples: Purposeful Brainstorming
+## Ripples: Purposeful Brainstorming
 
 This is a simple project I’m doing to learn the basics of coding in Python.
 
@@ -31,7 +31,7 @@ By following these steps, you’ll create a visual map of your knowledge about t
 Once you finish, you might discover a new perspective or learn something new!
 
 
-# Example Output
+### Example Output
 
         +----------------------------------------------organizing---------------------------------------------+
         |                                                                                                     |
