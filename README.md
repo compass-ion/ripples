@@ -29,3 +29,31 @@ the number of subtopics you chose inside the first ripple.
 
 By following these steps, you’ll create a visual map of your knowledge about the topic. 
 Once you finish, you might discover a new perspective or learn something new!
+
+
+# Example Output
+
+        +----------------------------------------------organizing---------------------------------------------+
+        |                                                                                                     |
+        |      scratch------------------------------------------------------------------------discipline      |
+        |        |                                                                                   |        |
+        |        |        +----------------------------beginning----------------------------+        |        |
+        |        |        |                                                                 |        |        |
+        |        |        |        +-bridge-----------------------------------goal-+        |        |        |
+        |        |        |        |                                               |        |        |        |
+    blue print   |        |        |          +------brainstorming------+          |        |        |    providing  
+        |        |     creation    |          |                         |          |     success     |        |
+        |        |        |        |       connection               purpose        |        |        |        |
+        |        |        |        |          |                         |          |        |        |        |
+        |        |        |     harmony       |         ripples         |       solidify    |        |        |
+        |        |        |        |          |                         |          |        |        |        |
+        |   necessities   |        |          |                         |          |        |   give & take   |
+        |        |        |        |        together--------------knowledge        |        |        |        |
+        |        |        |        |                                               |        |        |        |
+        |        |        |        +--------------------teamwork-------------------+        |        |        |
+        |        |        |                                                                 |        |        |
+        |        |    frame---------------------------------------------------------------support    |        |
+        |        |                                                                                   |        |
+        |        +---------------------------------------safety--------------------------------------+        |
+        |                                                                                                     |
+    life-------------------------------------------------------------------------------------------------compassion
