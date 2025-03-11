@@ -31,7 +31,8 @@ By following these steps, you’ll create a visual map of your knowledge about t
 Once you finish, you might discover a new perspective or learn something new!
 
 
-### Example Output
+
+### Example Output:
 
         +----------------------------------------------organizing---------------------------------------------+
         |                                                                                                     |
@@ -57,3 +58,15 @@ Once you finish, you might discover a new perspective or learn something new!
         |        +---------------------------------------safety--------------------------------------+        |
         |                                                                                                     |
     life-------------------------------------------------------------------------------------------------compassion
+
+
+
+
+### How to Run the Sample Script:
+To run the sample script 'ripples_script.py', follow these steps:
+- Download the complete GitHub repository.
+- Open a terminal.
+- Navigate to the folder where you downloaded the repository.
+- Run the script by typing 'python ripples_script.py'.
+
+### If you have any questions, feel free to email me!
