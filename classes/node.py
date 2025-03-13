@@ -1,85 +1,82 @@
-"""
-Aus einem Kernpunkt im Zentrum breiten sich die Ringe
-der Erkenntnis in konzentrischen Kreisen aus, aehnlich
-eines Tropfens, der ins Wasser faellt.
-
-Und so wird aus einem Tropfen Erkenntnis ein ganzer See.
-"""
+from __future__ import annotations  # for forward referencing
 from datetime import datetime  # for timestamp in history
-from copy import deepcopy # return deepcopies to prevent manipulation
+from copy import deepcopy  # return deepcopies to prevent manipulation
 
 class Node:
-    """"representing one single node"""
-
-    def __init__(self, position, name, antidote):
-        """initializing position in the circle, caption or name, and ..."""
-        self._position = position
-        self._name = name
-        self._antidote = antidote
-        self._history = []
-
-    @property
-    def position(self):
-        """returning the initialized position (immutable)"""
-        return deepcopy(self._position)
-
-    # intentionally no position setter
+    """ Object representing one single node. """
     
-    @property
-    def name(self):
-        """returning name of the node"""
-        return deepcopy(self._name)
+    def __init__(self, position_in_ripple: str, caption: str, opposite: str = "") -> None:
+        """ Initializing position_in_ripple, caption, and opposite. """
+        self._position_in_ripple = position_in_ripple
+        self._caption = caption
+        self._opposite = opposite
+        self._history: list[dict[str, str, str, str]] = []
 
-    @name.setter
-    def name(self, new_name):
-        """changing the Node's name to new_name"""
-        if not isinstance(new_name, str):  # checking for object type
-            raise ValueError("Name must be a string.")
-        self._history.append({  # saving previous states csv-ready
+    @property
+    def position_in_ripple(self) -> str:
+        """
+        Returning the Deep Copy of the Node's Position in the Ripple.
+        Not to be changed after Initialization.
+        """
+        return deepcopy(self._position_in_ripple)
+
+    @property
+    def caption(self) -> str:
+        """ Returning a Deep Copy of the Node's caption. """
+        return deepcopy(self._caption)
+
+    @caption.setter
+    def caption(self, new_caption: str) -> str:
+        """ Changing the Node's Caption to new_caption. """
+        # checking for object type
+        if not isinstance(new_caption, str):  
+            raise ValueError("Caption must be a string.")
+        # saving previous states csv-ready
+        self._history.append({
             'timestamp': str(datetime.now()),
-            'name': self._name,
-            'antidote':self._antidote,
-            'changed': 'name'
+            'caption': self._caption,
+            'opposite': self._opposite,
+            'changed': 'caption'
         })
-        self._name = new_name
+        self._caption = new_caption
 
     @property
-    def antidote(self):
-        """returning the name's antidote"""
-        return self._antidote
+    def opposite(self) -> str:
+        """ Returning the Caption's Opposite. """
+        return self._opposite
 
-    @antidote.setter
-    def antidote(self, new_antidote):
-        """changing the names's antidote to new_antidote"""
-        if not isinstance(new_antidote, str):
-            raise ValueError("Antidote must be a string")
-        self._history.append({  # saving previous states csv-ready
+    @opposite.setter
+    def opposite(self, new_opposite: str) -> None:
+        """ Changing the Captions's Opposite to new_opposite. """
+        if not isinstance(new_opposite, str):
+            raise ValueError("Opposite must be a string")
+        self._history.append({
             'timestamp': str(datetime.now()),
-            'name': self._name,
-            'antidote':self._antidote,
-            'changed': 'antidote'
+            'caption': self._caption,
+            'opposite': self._opposite,
+            'changed': 'opposite'
         })
-        self._antidote = new_antidote
+        self._opposite = new_opposite
 
     @property
-    def history(self):
-        """Return a deep copy of the history of changes"""
+    def history(self) -> list[dict[str, str, str, str]]:
+        """ Return a Deep Copy of the History. """
         return deepcopy(self._history)
 
-    def __str__(self):
-        """returning a printable representation of Node"""
-        return f"{self.position} / {self.name} / {self.antidote}"
+    def __str__(self) -> str:
+        """ Returning a printable Representation of Node object. """
+        return f"{self.position_in_ripple} / {self.caption} / {self.opposite}"
 
-    def __eq__(self, other):
-        """equality means equal names"""
+    def __eq__(self, other: Node) -> bool:
+        """ Equality means equal Captions. """
         if isinstance(other, Node):
-            return self.name == other.name
+            return self.caption == other.caption
         return False
 
 if __name__ == '__main__':
     node0 = Node('CC: center circle', 'circle of wisdom', 'never ending story')
     node1 = Node('c1n1: circle1 node1', 'time', 'fairytail')
-    node2 = Node('c1n2', 'no end', 'waste')
+    node2 = Node('c1n2', 'no end')
 
     print(node0)
     print(node1)
@@ -88,18 +85,9 @@ if __name__ == '__main__':
     print(node0 == node1)
     print(node0 == node2)
 
-    node1.name = node2.name
+    node1.caption = node2.caption
     print(node1 == node2)
     print(node1.history)
-"""
-Possible Improvements:
 
-- Type Hints
-- History: storing only changed values
-- Custom Error Classes
-- Method To Clear History
-- CSV or JSON support
-- Improving __str__
-- Unit Tests
-- Docstrings With More Context?
-- ...
+# history: storing only changed values
+# method: clearing_history
