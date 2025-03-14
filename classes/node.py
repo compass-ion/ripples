@@ -1,5 +1,5 @@
 from __future__ import annotations  # for forward referencing
-from datetime import datetime  # for timestamp in history
+from time import ctime as timestamp
 from copy import deepcopy  # return deepcopies to prevent manipulation
 
 class Node:
@@ -33,10 +33,8 @@ class Node:
             raise ValueError("Caption must be a string.")
         # saving previous states csv-ready
         self._history.append({
-            'timestamp': str(datetime.now()),
-            'caption': self._caption,
-            'opposite': self._opposite,
-            'changed': 'caption'
+            'timestamp': str(timestamp()),
+            'previous caption': self._caption
         })
         self._caption = new_caption
 
@@ -51,10 +49,8 @@ class Node:
         if not isinstance(new_opposite, str):
             raise ValueError("Opposite must be a string")
         self._history.append({
-            'timestamp': str(datetime.now()),
-            'caption': self._caption,
-            'opposite': self._opposite,
-            'changed': 'opposite'
+            'timestamp': str(timestamp()),
+            'previous opposite': self._opposite
         })
         self._opposite = new_opposite
 
@@ -63,15 +59,31 @@ class Node:
         """ Return a Deep Copy of the History. """
         return deepcopy(self._history)
 
+    def clear_history(self) -> None:
+        """ Clearing / Resetting the Node's History. """
+        self._history.clear()
+
+    def visualize(self) -> str:
+        """ Returning ASCII Visualization of Node. """
+        visual: str = ""
+        visual += "+-" + "-"*len(self.caption) + "-+\n"
+        visual += "| " + self.caption + " |\n"
+        visual += "+-" + "-"*len(self.caption) + "-+\n"
+        return visual
+
     def __str__(self) -> str:
         """ Returning a printable Representation of Node object. """
         return f"{self.position_in_ripple} / {self.caption} / {self.opposite}"
 
     def __eq__(self, other: Node) -> bool:
-        """ Equality means equal Captions. """
+        """ Equality means equal Captions and equal Opposites. """
         if isinstance(other, Node):
-            return self.caption == other.caption
+            return self.caption == other.caption and self.opposite == other.opposite
         return False
+
+class Ripple(Node):
+    ...
+
 
 if __name__ == '__main__':
     node0 = Node('CC: center circle', 'circle of wisdom', 'never ending story')
@@ -88,6 +100,10 @@ if __name__ == '__main__':
     node1.caption = node2.caption
     print(node1 == node2)
     print(node1.history)
+    
+    node1.clear_history()
+    print(node1.history)
 
-# history: storing only changed values
-# method: clearing_history
+    print(node0.visualize())
+    print(node1.visualize())
+    print(node2.visualize())
