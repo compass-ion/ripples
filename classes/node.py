@@ -1,16 +1,18 @@
-from __future__ import annotations  # for forward referencing
+from __future__ import annotations
 from time import ctime as timestamp
-from copy import deepcopy  # return deepcopies to prevent manipulation
+from copy import deepcopy
+
 
 class Node:
     """ Object representing one single node. """
-    
-    def __init__(self, position_in_ripple: str, caption: str, opposite: str = "") -> None:
+    def __init__(self, position_in_ripple: str = '', caption: str = '',
+                 opposite: str = '') -> None:
         """ Initializing position_in_ripple, caption, and opposite. """
+
         self._position_in_ripple = position_in_ripple
         self._caption = caption
         self._opposite = opposite
-        self._history: list[dict[str, str, str, str]] = []
+        self._history: list[dict[str, str]] = []
 
     @property
     def position_in_ripple(self) -> str:
@@ -29,7 +31,7 @@ class Node:
     def caption(self, new_caption: str) -> str:
         """ Changing the Node's Caption to new_caption. """
         # checking for object type
-        if not isinstance(new_caption, str):  
+        if not isinstance(new_caption, str):
             raise ValueError("Caption must be a string.")
         # saving previous states csv-ready
         self._history.append({
@@ -55,7 +57,7 @@ class Node:
         self._opposite = new_opposite
 
     @property
-    def history(self) -> list[dict[str, str, str, str]]:
+    def history(self) -> list[dict[str, str]]:
         """ Return a Deep Copy of the History. """
         return deepcopy(self._history)
 
@@ -71,39 +73,43 @@ class Node:
         visual += "+-" + "-"*len(self.caption) + "-+\n"
         return visual
 
+    def __repr__(self) -> str:
+        """ Returning canonical string representation:
+            eval(repr(Node)) != Node """
+        return "'{}', '{}', '{}'".format(
+            self._position_in_ripple, self._caption, self._opposite)
+
     def __str__(self) -> str:
         """ Returning a printable Representation of Node object. """
-        return f"{self.position_in_ripple} / {self.caption} / {self.opposite}"
+        return (f"Position: {self.position_in_ripple}\n"
+                f"Caption: {self.caption}\n"
+                f"Opposite: {self.opposite}\n")
 
     def __eq__(self, other: Node) -> bool:
         """ Equality means equal Captions and equal Opposites. """
         if isinstance(other, Node):
-            return self.caption == other.caption and self.opposite == other.opposite
+            return self.caption == other.caption and \
+                self.opposite == other.opposite
         return False
-
-class Ripple(Node):
-    ...
 
 
 if __name__ == '__main__':
-    node0 = Node('CC: center circle', 'circle of wisdom', 'never ending story')
-    node1 = Node('c1n1: circle1 node1', 'time', 'fairytail')
-    node2 = Node('c1n2', 'no end')
+    # defining nodes
+    node0 = Node('center circle', 'circle of wisdom', 'never ending story')
+    node1 = Node('cc', 'time', 'space')
+    node2 = Node('r0n0', 'center node')
+    print(node0, node1, node2, sep='\n', end='\n\n')
 
-    print(node0)
-    print(node1)
-    print(node2)
+    # comparing nodes
+    node1 = deepcopy(node0)
+    print(f"node0 equals node1: {node0 == node1}")
+    print(f"node0 is node1: {node0 is node1}", end='\n\n')
 
-    print(node0 == node1)
-    print(node0 == node2)
-
-    node1.caption = node2.caption
-    print(node1 == node2)
+    # history
+    node1.caption = 'new caption'
     print(node1.history)
-    
     node1.clear_history()
-    print(node1.history)
+    print(f'cleared history: {node1.history}', end='\n\n')
 
-    print(node0.visualize())
-    print(node1.visualize())
-    print(node2.visualize())
+    # ASCII Visualization
+    print(node0.visualize(), node1.visualize(), node2.visualize(), sep='')
